@@ -5,26 +5,27 @@ formRef.addEventListener('input', throttle(formChange, 500))
 console.log(formRef);
 
 const dataForm = {};
+const STORAGE_KEY = 'feedback-form-state';
 
 function formChange(e) {
     //отслеживаем событие в форме и вносим изменения значей по ключу в объекте dataForm
     dataForm[e.target.name] = e.target.value;
-    localStorage.setItem('feedback-form-state', JSON.stringify(dataForm));
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(dataForm));
 }
 
 formRef.addEventListener('submit', submitForm);
 
 function submitForm(e) {
     //отслеживаем события отправки формы и вывод объекта в консоль + очистка формы и localStorage
-    console.log(JSON.parse(localStorage.getItem('feedback-form-state')));
+    console.log(JSON.parse(localStorage.getItem(STORAGE_KEY)));
     e.preventDefault();
     e.currentTarget.reset();
-    localStorage.removeItem('feedback-form-state');
+    localStorage.removeItem(STORAGE_KEY);
 }
 
 // функция сохранения данных формы в случае обновления страницы
 function formStorage() {
-    const data = JSON.parse(localStorage.getItem('feedback-form-state'));
+    const data = JSON.parse(localStorage.getItem(STORAGE_KEY));
     const emailRef = formRef.querySelector('input');
     const messageRef = formRef.querySelector('textarea');
     
