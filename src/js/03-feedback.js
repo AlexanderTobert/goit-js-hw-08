@@ -7,10 +7,8 @@ formRef.addEventListener('input', throttle(formChange, 500))
 
 // console.log(formRef);
 
-const dataForm = {};
+let dataForm = {};
 const STORAGE_KEY = 'feedback-form-state';
-
-formStorage();
 
 function formChange(e) {
     //отслеживаем событие в форме и вносим изменения значей по ключу в объекте dataForm
@@ -31,8 +29,10 @@ function submitForm(e) {
     e.preventDefault();
     e.currentTarget.reset();
     localStorage.removeItem(STORAGE_KEY);
-
+    dataForm = {};
 }
+
+formStorage();
 
 // функция сохранения данных формы в случае обновления страницы
 function formStorage() {
